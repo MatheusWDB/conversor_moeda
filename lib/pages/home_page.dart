@@ -1,3 +1,4 @@
+import 'package:conversor_moedas/widgets/build_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:async';
@@ -16,6 +17,9 @@ class _HomePageState extends State<HomePage> {
   TextEditingController realController = TextEditingController();
   TextEditingController dolarController = TextEditingController();
   TextEditingController euroController = TextEditingController();
+
+  late double dolar;
+  late double euro;
 
   @override
   Widget build(BuildContext context) {
@@ -56,10 +60,8 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 }
-                double dolar =
-                    snapshot.data!['results']['currencies']['USD']['buy'];
-                double euro =
-                    snapshot.data!['results']['currencies']['EUR']['buy'];
+                dolar = snapshot.data!['results']['currencies']['USD']['buy'];
+                euro = snapshot.data!['results']['currencies']['EUR']['buy'];
                 return SingleChildScrollView(
                   child: Padding(
                     padding: const EdgeInsets.all(16.0),
@@ -72,71 +74,23 @@ class _HomePageState extends State<HomePage> {
                           size: 150.0,
                           color: Colors.amber,
                         ),
-                        TextField(
+                        BuildTextField(
+                          label: 'Reais',
+                          prefix: 'R\$ ',
                           controller: realController,
-                          cursorColor: Colors.amber,
-                          keyboardType: TextInputType.number,
-                          style: TextStyle(
-                            color: Colors.amber,
-                            fontSize: 25.0,
-                          ),
-                          decoration: InputDecoration(
-                            labelText: 'Reais',
-                            prefixText: 'R\$ ',
-                            labelStyle: TextStyle(
-                              color: Colors.amber,
-                              fontSize: 25.0,
-                            ),
-                            prefixStyle: TextStyle(
-                              color: Colors.amber,
-                              fontSize: 25.0,
-                            ),
-                            border: OutlineInputBorder(),
-                          ),
+                          function: realChanged,
                         ),
-                        TextField(
+                        BuildTextField(
+                          label: 'Dólares',
+                          prefix: 'U\$ ',
                           controller: dolarController,
-                          cursorColor: Colors.amber,
-                          keyboardType: TextInputType.number,
-                          style: TextStyle(
-                            color: Colors.amber,
-                            fontSize: 25.0,
-                          ),
-                          decoration: InputDecoration(
-                            labelText: 'Dólares',
-                            prefixText: 'U\$ ',
-                            labelStyle: TextStyle(
-                              color: Colors.amber,
-                              fontSize: 25.0,
-                            ),
-                            prefixStyle: TextStyle(
-                              color: Colors.amber,
-                              fontSize: 25.0,
-                            ),
-                            border: OutlineInputBorder(),
-                          ),
+                          function: dolarChanged,
                         ),
-                        TextField(
+                        BuildTextField(
+                          label: 'Euros',
+                          prefix: '€ ',
                           controller: euroController,
-                          cursorColor: Colors.amber,
-                          keyboardType: TextInputType.number,
-                          style: TextStyle(
-                            color: Colors.amber,
-                            fontSize: 25.0,
-                          ),
-                          decoration: InputDecoration(
-                            labelText: 'Euros',
-                            prefixText: '€ ',
-                            labelStyle: TextStyle(
-                              color: Colors.amber,
-                              fontSize: 25.0,
-                            ),
-                            prefixStyle: TextStyle(
-                              color: Colors.amber,
-                              fontSize: 25.0,
-                            ),
-                            border: OutlineInputBorder(),
-                          ),
+                          function: euroChanged,
                         ),
                       ],
                     ),
@@ -148,6 +102,10 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
+
+  void realChanged(String text) {}
+  void dolarChanged(String text) {}
+  void euroChanged(String text) {}
 }
 
 Future<Map> getData() async {
