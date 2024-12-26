@@ -17,12 +17,12 @@ class MyApp extends StatelessWidget {
           primaryColor: Colors.white,
           inputDecorationTheme: InputDecorationTheme(
             enabledBorder:
-                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
-            focusedBorder:
                 OutlineInputBorder(borderSide: BorderSide(color: Colors.amber)),
+            focusedBorder:
+                OutlineInputBorder(borderSide: BorderSide(color: Colors.white)),
             hintStyle: TextStyle(color: Colors.amber),
           )),
-      home: const HomePage(),
+      home: HomePage(),
     );
   }
 }
