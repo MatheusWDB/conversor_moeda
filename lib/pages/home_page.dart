@@ -28,8 +28,21 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: Colors.black,
         appBar: AppBar(
           title: Text('\$ Conversor \$'),
+          titleTextStyle: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 25.0,
+            color: Colors.black,
+          ),
           backgroundColor: Colors.amber,
           centerTitle: true,
+          actions: [
+            IconButton(
+              onPressed: reset,
+              icon: Icon(Icons.refresh),
+              color: Colors.black,
+              iconSize: 25,
+            ),
+          ],
         ),
         body: FutureBuilder(
           future: getData(),
@@ -103,9 +116,48 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  void realChanged(String text) {}
-  void dolarChanged(String text) {}
-  void euroChanged(String text) {}
+  void realChanged(String text) {
+    if (text.isEmpty) {
+      clearAll();
+      return;
+    }
+    double real = double.parse(text);
+    dolarController.text = (real / dolar).toStringAsFixed(2);
+    euroController.text = (real / euro).toStringAsFixed(2);
+  }
+
+  void dolarChanged(String text) {
+    if (text.isEmpty) {
+      clearAll();
+      return;
+    }
+    double dolar = double.parse(text);
+    realController.text = (dolar * this.dolar).toStringAsFixed(2);
+    euroController.text = (dolar * this.dolar / euro).toStringAsFixed(2);
+  }
+
+  void euroChanged(String text) {
+    if (text.isEmpty) {
+      clearAll();
+      return;
+    }
+    double euro = double.parse(text);
+    realController.text = (euro * this.euro).toStringAsFixed(2);
+    dolarController.text = (euro * this.euro / dolar).toStringAsFixed(2);
+  }
+
+  void clearAll() {
+    realController.clear();
+    dolarController.clear();
+    euroController.clear();
+  }
+
+  void reset() {
+    realController.clear();
+    dolarController.clear();
+    euroController.clear();
+    setState(() {});
+  }
 }
 
 Future<Map> getData() async {

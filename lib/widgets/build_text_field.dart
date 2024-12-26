@@ -20,6 +20,7 @@ class BuildTextField extends StatelessWidget {
       controller: controller,
       cursorColor: Colors.amber,
       keyboardType: TextInputType.number,
+      onChanged: function,
       style: const TextStyle(
         color: Colors.amber,
         fontSize: 25.0,
