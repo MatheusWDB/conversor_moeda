@@ -19,7 +19,7 @@ class BuildTextField extends StatelessWidget {
     return TextField(
       controller: controller,
       cursorColor: Colors.amber,
-      keyboardType: TextInputType.number,
+      keyboardType: TextInputType.numberWithOptions(decimal: true),
       onChanged: function,
       style: const TextStyle(
         color: Colors.amber,
